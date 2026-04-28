@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Interactive Data Mining tool featuring Apriori, FP-Growth, and K-Means algorithms. Enter your own data and explore results instantly." />
+  <title>Data Mining Algorithms - Apriori, FP-Growth and K-Means</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Animated math symbols background -->
+  <canvas id="math-bg"></canvas>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>Data Mining Algorithms</h1>
+      <p>Explore Apriori, FP-Growth association rules and K-Means clustering with your own data</p>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="panel-apriori" id="tab-apriori">Apriori</button>
+      <button class="tab-btn" data-tab="panel-fpgrowth" id="tab-fpgrowth">FP-Growth</button>
+      <button class="tab-btn" data-tab="panel-kmeans" id="tab-kmeans">K-Means</button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         APRIORI PANEL
+    ══════════════════════════════════════ -->
+    <div id="panel-apriori" class="tab-panel active">
+      <div class="card">
+        <h2>Apriori - Association Rules</h2>
+        <form id="apriori-form" autocomplete="off">
+
+          <div class="form-group">
+            <label for="transactions-input">Transactions <small
+                style="text-transform:none;font-weight:400;color:var(--text-3)">(one per line, items separated by
+                commas)</small></label>
+            <textarea id="transactions-input"
+              placeholder="milk, bread, butter&#10;milk, bread&#10;milk, butter&#10;bread, butter&#10;milk, bread, butter, jam"
+              spellcheck="false"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="min-support">Min Support (0-1)</label>
+              <input type="number" id="min-support" step="0.01" min="0.01" max="1" value="0.4" />
+            </div>
+            <div class="form-group">
+              <label for="min-confidence">Min Confidence (0-1)</label>
+              <input type="number" id="min-confidence" step="0.01" min="0.01" max="1" value="0.5" />
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary" id="apriori-run">Run Apriori</button>
+            <button type="button" class="btn btn-ghost" id="apriori-example">Load Example</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div class="card">
+        <div id="apriori-result" class="result-area">
+          <p class="empty">Enter transactions above and click <strong>Run Apriori</strong> to see results.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FP-GROWTH PANEL
+    ══════════════════════════════════════ -->
+    <div id="panel-fpgrowth" class="tab-panel">
+      <div class="card">
+        <h2>FP-Growth - Association Rules</h2>
+        <form id="fpgrowth-form" autocomplete="off">
+
+          <div class="form-group">
+            <label for="fp-transactions-input">Transactions <small
+                style="text-transform:none;font-weight:400;color:var(--text-3)">(one per line, items separated by
+                commas)</small></label>
+            <textarea id="fp-transactions-input"
+              placeholder="milk, bread, butter&#10;milk, bread&#10;milk, butter&#10;bread, butter&#10;milk, bread, butter, jam"
+              spellcheck="false"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fp-min-support">Min Support (0-1)</label>
+              <input type="number" id="fp-min-support" step="0.01" min="0.01" max="1" value="0.4" />
+            </div>
+            <div class="form-group">
+              <label for="fp-min-confidence">Min Confidence (0-1)</label>
+              <input type="number" id="fp-min-confidence" step="0.01" min="0.01" max="1" value="0.5" />
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary" id="fpgrowth-run">Run FP-Growth</button>
+            <button type="button" class="btn btn-ghost" id="fpgrowth-example">Load Example</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div class="card">
+        <div id="fpgrowth-result" class="result-area">
+          <p class="empty">Enter transactions above and click <strong>Run FP-Growth</strong> to see results.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         K-MEANS PANEL
+    ══════════════════════════════════════ -->
+    <div id="panel-kmeans" class="tab-panel">
+      <div class="card">
+        <h2>K-Means - Clustering</h2>
+        <form id="kmeans-form" autocomplete="off">
+
+          <div class="form-group">
+            <label for="points-input">Data Points <small
+                style="text-transform:none;font-weight:400;color:var(--text-3)">(one per line, x and y separated by
+                comma)</small></label>
+            <textarea id="points-input"
+              placeholder="1.0, 2.0&#10;1.5, 1.8&#10;8.0, 8.0&#10;8.5, 7.5&#10;1.0, 8.0&#10;1.5, 8.5"
+              spellcheck="false"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="k-value">Number of Clusters (K)</label>
+              <input type="number" id="k-value" min="1" max="20" value="3" />
+            </div>
+            <div class="form-group">
+              <label for="max-iterations">Max Iterations</label>
+              <input type="number" id="max-iterations" min="1" max="1000" value="100" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="distance-metric">Distance Metric</label>
+              <select id="distance-metric">
+                <option value="euclidean">Euclidean</option>
+                <option value="manhattan">Manhattan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="initial-centroids">Initial Centroids <small style="text-transform:none;font-weight:400;color:var(--text-3)">(e.g. 1, 2, 3)</small></label>
+              <input type="text" id="initial-centroids" placeholder="Leave empty for default" />
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary" id="kmeans-run">Run K-Means</button>
+            <button type="button" class="btn btn-ghost" id="kmeans-example">Load Example</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div class="card">
+        <div id="kmeans-result" class="result-area">
+          <p class="empty">Enter data points above and click <strong>Run K-Means</strong> to see results.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/background.js"></script>
+  <script src="js/apriori.js"></script>
+  <script src="js/fpgrowth.js"></script>
+  <script src="js/kmeans.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
